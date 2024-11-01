@@ -13,16 +13,16 @@ import (
 )
 
 const logo = `
-  ▄████  ██▓     █    ██ ▓█████ 
- ██▒ ▀█▒▓██▒     ██  ▓██▒▓█   ▀ 
-▒██░▄▄▄░▒██░    ▓██  ▒██░▒███   
-░▓█  ██▓▒██░    ▓▓█  ░██░▒▓█  ▄ 
+  ▄████  ██▓     █    ██ ▓█████
+ ██▒ ▀█▒▓██▒     ██  ▓██▒▓█   ▀
+▒██░▄▄▄░▒██░    ▓██  ▒██░▒███
+░▓█  ██▓▒██░    ▓▓█  ░██░▒▓█  ▄
 ░▒▓███▀▒░██████▒▒▒█████▓ ░▒████▒
  ░▒   ▒ ░ ▒░▓  ░░▒▓▒ ▒ ▒ ░░ ▒░ ░
   ░   ░ ░ ░ ▒  ░░░▒░ ░ ░  ░ ░  ░
-░ ░   ░   ░ ░    ░░░ ░ ░    ░   
+░ ░   ░   ░ ░    ░░░ ░ ░    ░
       ░     ░  ░   ░        ░  ░
-                                 
+
 `
 
 type section struct {
@@ -169,15 +169,13 @@ func combineFiles(all bool, output string, inclusionPatterns, ignorePatterns []s
 	for _, path := range includedFiles {
 		fmt.Fprintf(outFile, "-- %s\n", path)
 		fileType := getFileType(path)
-		fmt.Fprintf(outFile, "
-%s\n", fileType)
+		fmt.Fprintf(outFile, "%s\n", fileType)
 		content, err := ioutil.ReadFile(path)
 		if err != nil {
 			return 0, err
 		}
 		outFile.Write(content)
-		fmt.Fprintf(outFile, "\n
-\n\n")
+		fmt.Fprintf(outFile, "\n\n\n")
 	}
 
 	return len(includedFiles), nil
@@ -221,8 +219,7 @@ func parseSections(content string) []section {
 			}
 			path := strings.TrimSpace(strings.TrimPrefix(line, "-- "))
 			currentSection = &section{path: path}
-		} else if strings.HasPrefix(line, "
-") {
+		} else if strings.HasPrefix(line, "") {
 			if !inCodeBlock {
 				// Start of code block
 				inCodeBlock = true
